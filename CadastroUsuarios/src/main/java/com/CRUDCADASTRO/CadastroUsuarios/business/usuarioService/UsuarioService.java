@@ -1,4 +1,4 @@
-package com.CRUDCADASTRO.CadastroUsuarios.business.UsuarioService;
+package com.CRUDCADASTRO.CadastroUsuarios.business.usuarioService;
 
 import com.CRUDCADASTRO.CadastroUsuarios.infrastructure.entity.Usuario;
 import com.CRUDCADASTRO.CadastroUsuarios.infrastructure.repository.UsuarioRepository;
@@ -22,6 +22,17 @@ public class UsuarioService {
         repository.saveAndFlush(usuario);
     }
 
+    //Read
+    public Usuario buscarUsuarioPorEmail (String email){
+        return repository.findByEmail(email).orElseThrow(
+                () -> new RuntimeException("Email nao encontrado")
+        );
+    }
+
+    //Delete
+    public void deletarUsuarioPorEmail (String email){
+        repository.deleteByEmail(email);
+    }
 
     //Update
     public void atualizarUsuarioPorEmail (String email, Usuario usuario){
@@ -35,20 +46,17 @@ public class UsuarioService {
         repository.saveAndFlush(usuarioAtualizado);
     }
 
-    //Read
-    public Usuario buscarUsuarioPorEmail (String email){
-        return repository.findByEmail(email).orElseThrow(
-                () -> new RuntimeException("Email nao encontrado")
-        );
-    }
 
-    //Delete
-    public void deletarUsuarioPorEmail (String email){
-        repository.deleteByEmail(email);
-    }
 
+    // Read, utilizando id
     public Optional<Usuario> buscarUsuarioPorId (Integer id){
         return repository.findById(id);
     }
 
+    //Delete utilizando id
+    public void deletarUsuarioPorId (Integer id){
+        repository.deleteById(id);
+    }
+
+    //Update
 }
